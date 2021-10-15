@@ -43,3 +43,18 @@ $font-size-base: 1rem;
 
 $dropdown-link-hover-color: white;
 $dropdown-link-hover-bg: #343a40;
+
+.bg-trong {
+  background-color: rgba(0, 0, 0.5, 0.6);
+}
+
+text-white {
+  color: white;
+}
+.img-size {
+  height: auto;
+  width: auto;
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 50%;
+}

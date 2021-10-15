@@ -18,11 +18,16 @@ public class UserInfoDTO {
 
     private String login;
     private String imageUrl;
+
+    @Length(max = 4096)
     private String introduce;
+
     private Instant birthday;
 
     @Length(max = 15)
     private String phoneNumber;
+
+    private String bgUrl;
 
     public UserInfoDTO() {}
 
@@ -35,6 +40,7 @@ public class UserInfoDTO {
         this.introduce = user.getIntroduce();
         this.birthday = user.getBirthday();
         this.phoneNumber = user.getPhoneNumber();
+        this.bgUrl = user.getBgUrl();
     }
 
     public String getId() {
@@ -99,5 +105,13 @@ public class UserInfoDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getBgUrl() {
+        return bgUrl;
+    }
+
+    public void setBgUrl(String bgUrl) {
+        this.bgUrl = bgUrl;
     }
 }

@@ -3,9 +3,12 @@
 <div>
   <router-outlet name="navbar"></router-outlet>
 </div>
-
 <div class="container-fluid">
-  <div class="card jh-card">
+  <div
+    class="card jh-card bg-home"
+    [ngStyle]="{ 'background-image': getPgUrl() }"
+    style="background-repeat: no-repeat; background-color: #b3b3b3; background-position: center center"
+  >
     <router-outlet></router-outlet>
   </div>
 

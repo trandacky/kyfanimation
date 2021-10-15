@@ -48,6 +48,8 @@ public class AdminUserDTO {
 
     private Set<String> authorities;
 
+    private String bgUrl;
+
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -66,6 +68,7 @@ public class AdminUserDTO {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+        this.bgUrl = user.getBgUrl();
     }
 
     public String getId() {
@@ -170,6 +173,14 @@ public class AdminUserDTO {
 
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getBgUrl() {
+        return bgUrl;
+    }
+
+    public void setBgUrl(String bgUrl) {
+        this.bgUrl = bgUrl;
     }
 
     // prettier-ignore

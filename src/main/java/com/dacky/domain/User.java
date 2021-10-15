@@ -56,6 +56,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column("image_url")
     private String imageUrl;
 
+    @Size(max = 256)
+    @Column("bg_Url")
+    private String bgUrl;
+
     @Size(max = 2048)
     @Column("introduce")
     private String introduce;
@@ -166,6 +170,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getBgUrl() {
+        return bgUrl;
+    }
+
+    public void setBgUrl(String bgUrl) {
+        this.bgUrl = bgUrl;
     }
 
     @Override

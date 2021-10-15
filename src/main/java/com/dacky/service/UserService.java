@@ -159,6 +159,7 @@ public class UserService {
                 user.setImageUrl(existingUser.getImageUrl());
                 user.setFirstName(existingUser.getFirstName());
                 user.setLastName(existingUser.getLastName());
+                user.setBgUrl(existingUser.getBgUrl());
                 // if IdP sends last updated information, use it to determine if an update should happen
                 if (details.get("updated_at") != null) {
                     Instant dbModifiedDate = existingUser.getLastModifiedDate();

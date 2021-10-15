@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { ToastEnumsConstant } from '../../config/ToastEnums.constant';
-import { Calendar } from 'primeng/calendar';
 
 @Component({
   selector: 'jhi-user-profile',
@@ -44,7 +43,9 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
-
+  public getPgUrl(): string {
+    return `url("${String(this.profile.bgUrl)}")`;
+  }
   private loadAll(): void {
     this.userService.getUserProfile().subscribe(data => {
       this.profile = data.response;
