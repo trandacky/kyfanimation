@@ -8,21 +8,21 @@ import com.dacky.repository.UserRepository;
 import com.dacky.security.SecurityUtils;
 import com.dacky.service.dto.AdminUserDTO;
 import com.dacky.service.dto.UserDTO;
+import com.nimbusds.jose.shaded.json.JSONArray;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 /**
  * Service class for managing users.
@@ -63,7 +63,9 @@ public class UserService {
                     user.setEmail(email.toLowerCase());
                 }
                 user.setLangKey(langKey);
-                user.setImageUrl(imageUrl);
+                if (StringUtils.isNotEmpty(imageUrl)) {
+                    user.setImageUrl(imageUrl);
+                }
                 return saveUser(user);
             })
             .doOnNext(user -> log.debug("Changed Information for User: {}", user))
@@ -154,6 +156,9 @@ public class UserService {
             .then(userRepository.findOneByLogin(user.getLogin()))
             .switchIfEmpty(saveUser(user, true))
             .flatMap(existingUser -> {
+                user.setImageUrl(existingUser.getImageUrl());
+                user.setFirstName(existingUser.getFirstName());
+                user.setLastName(existingUser.getLastName());
                 // if IdP sends last updated information, use it to determine if an update should happen
                 if (details.get("updated_at") != null) {
                     Instant dbModifiedDate = existingUser.getLastModifiedDate();
@@ -187,21 +192,19 @@ public class UserService {
         } else if (authToken instanceof JwtAuthenticationToken) {
             attributes = ((JwtAuthenticationToken) authToken).getTokenAttributes();
         } else {
-            throw new IllegalArgumentException("AuthenticationToken is not OAuth2 or JWT!");
+            throw new IllegalArgumentException("AuthenticationToke  n is not OAuth2 or JWT!");
         }
         User user = getUser(attributes);
-        user.setAuthorities(
-            authToken
-                .getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .map(authority -> {
-                    Authority auth = new Authority();
-                    auth.setName(authority);
-                    return auth;
-                })
-                .collect(Collectors.toSet())
-        );
+
+        JSONArray auths = (JSONArray) attributes.get("authorities");
+        Set<Authority> authorities = new HashSet<Authority>();
+        for (int i = 0; i < auths.size(); i++) {
+            Authority au = new Authority();
+            au.setName(auths.get(i).toString());
+            authorities.add(au);
+        }
+
+        user.setAuthorities(authorities);
 
         return syncUserWithIdP(attributes, user).flatMap(u -> Mono.just(new AdminUserDTO(u)));
     }

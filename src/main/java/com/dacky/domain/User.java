@@ -3,6 +3,7 @@ package com.dacky.domain;
 import com.dacky.config.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -54,6 +55,17 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Size(max = 256)
     @Column("image_url")
     private String imageUrl;
+
+    @Size(max = 2048)
+    @Column("introduce")
+    private String introduce;
+
+    @Column("birthday")
+    private Instant birthday;
+
+    @Size(max = 15)
+    @Column("phone_number")
+    private String phoneNumber;
 
     @JsonIgnore
     @Transient
@@ -130,6 +142,30 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
+
+    public Instant getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Instant birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override

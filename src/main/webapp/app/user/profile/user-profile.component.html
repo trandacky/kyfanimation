@@ -1,0 +1,118 @@
+<style>
+  .img-size {
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+  }
+</style>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div *ngIf="formUpdateProfile">
+      <div class="card">
+        <div class="card-body">
+          <form (ngSubmit)="update()" [formGroup]="formUpdateProfile">
+            <div class="card">
+              <div class="card-body" style="text-align: center">
+                <div>
+                  <img class="img-size" src="{{ formUpdateProfile.value.imageUrl }}" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <label class="form-control-label" for="firstName">Giới thiệu</label>
+              </div>
+              <div class="col-md-12" style="text-align: center">
+                <textarea
+                  id="introduce"
+                  [rows]="5"
+                  [cols]="32"
+                  id="introduce"
+                  name="introduce"
+                  pInputTextarea
+                  [autoResize]="true"
+                  formControlName="introduce"
+                ></textarea>
+              </div>
+              <div class="form-group col-md-12">
+                <label class="form-control-label" for="firstName">Tên</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="Nhập tên"
+                  formControlName="firstName"
+                  #firstName
+                />
+                <div
+                  *ngIf="
+                    formUpdateProfile.get('firstName')!.invalid &&
+                    (formUpdateProfile.get('firstName')!.dirty || formUpdateProfile.get('firstName')!.touched)
+                  "
+                >
+                  <small class="form-text text-danger" *ngIf="formUpdateProfile.get('firstName')?.errors?.maxlength">
+                    Tên không thể có > 32 ký tự
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="formUpdateProfile.get('firstName')?.errors?.pattern">
+                    Tên không thể chứa ký tự đặc biệt
+                  </small>
+                  <small class="form-text text-danger" *ngIf="formUpdateProfile.get('firstName')?.errors?.required">
+                    Tên là bắt buộc
+                  </small>
+                </div>
+              </div>
+              <div class="form-group col-md-12">
+                <label class="form-control-label" for="lastName">Họ và tên đệm</label>
+                <input class="form-control" formControlName="lastName" id="lastName" name="lastName" placeholder="Nhập họ và tên đệm" />
+                <div
+                  *ngIf="
+                    formUpdateProfile.get('lastName')!.invalid &&
+                    (formUpdateProfile.get('lastName')!.dirty || formUpdateProfile.get('lastName')!.touched)
+                  "
+                >
+                  <small class="form-text text-danger" *ngIf="formUpdateProfile.get('lastName')?.errors?.maxlength">
+                    Họ và tên đệm không thể > 32 ký tự
+                  </small>
+
+                  <small class="form-text text-danger" *ngIf="formUpdateProfile.get('lastName')?.errors?.pattern">
+                    Họ và tên đệm không thể chứa ký tự đặc biệt
+                  </small>
+                  <small class="form-text text-danger" *ngIf="formUpdateProfile.get('lastName')?.errors?.required">
+                    Họ và tên đệm là bắt buộc
+                  </small>
+                </div>
+
+                <div class="p-field p-col-12 p-md-4" style="text-align: center">
+                  <span>Số điện thoại</span>
+                  <p-inputMask mask="(999) 999-9999" formControlName="phoneNumber" placeholder="Nhập số điện thoại"></p-inputMask>
+                  <small class="form-text text-danger" *ngIf="!formUpdateProfile.get('phoneNumber')">
+                    Số điện thoại cần thiết để admin liên hệ trao quà
+                  </small>
+                  <label class="form-control-label">Ngày sinh</label>
+                  <p-calendar
+                    dateFormat="dd-mm-yy"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1970:2050"
+                    [showIcon]="true"
+                    formControlName="birthday"
+                  ></p-calendar>
+                </div>
+                <div class="p-field p-col-12 p-md-4"></div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <button type="submit" style="float: right" [disabled]="!formUpdateProfile.valid" class="btn btn-primary">Lưu</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="bottom-left"></p-toast>

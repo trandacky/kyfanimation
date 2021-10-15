@@ -105,11 +105,12 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: http://localhost:9080/auth/realms/jhipster
+            #            issuer-uri: http://localhost:9080/auth/realms/vietnamanime
+            issuer-uri: http://172.31.98.39:9080/auth/realms/vietnamanime
         registration:
           oidc:
-            client-id: web_app
-            client-secret: web_app
+            client-id: vietnamanime
+            client-secret: 3637f25c-3f49-44e6-96f5-d3a80cc4f748
             scope: openid,profile,email
 
 server:
@@ -155,7 +156,7 @@ jhipster:
     license: unlicensed
     license-url:
   security:
-    content-security-policy: "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
+    content-security-policy: "default-src 'self'; frame-src 'self' https://www.youtube.com/ https://www.facebook.com/; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://raw.githubusercontent.com/ https://*.facebook.com http://*.facebook.com https://*.fbcdn.net http://*.fbcdn.net .facebook.net; font-src 'self' data:"
     oauth2:
       audience:
         - account
