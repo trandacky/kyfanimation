@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class UserServiceImplement implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImplement(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

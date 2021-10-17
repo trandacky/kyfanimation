@@ -101,6 +101,7 @@ public class SecurityConfiguration {
             .pathMatchers("/*.*").permitAll()
             .pathMatchers("/api/authenticate").permitAll()
             .pathMatchers("/api/auth-info").permitAll()
+            .pathMatchers("/api/public/**").permitAll()
             .pathMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .pathMatchers("/api/**").authenticated()
             .pathMatchers("/api/user/**").authenticated()

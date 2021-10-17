@@ -1,0 +1,63 @@
+<style>
+  .img-size-radius {
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+  }
+
+  div {
+    color: white;
+  }
+
+  .bg-trong {
+    background-color: rgba(0, 0, 0.5, 0.6);
+  }
+</style>
+<div class="card bg-trong">
+  <div class="card-body">
+    <form (ngSubmit)="update()" [formGroup]="formUpdateNotification">
+      <label>{{ notificationa.notification.key }} : </label>
+      <input type="text" class="form-control bg-trong text-white" placeholder="Nhập thông báo cho user" formControlName="notification" />
+      <label>{{ notificationa.notification_image.key }} : </label>
+      <input
+        type="text"
+        class="form-control col-md-12 bg-trong text-white"
+        placeholder="Nhập hình ảnh thông báo cho user"
+        formControlName="notificationImage"
+      />
+      <label>{{ notificationa.public_notification.key }} : </label>
+      <input
+        type="text"
+        class="form-control col-md-12 bg-trong text-white"
+        placeholder="Nhập Thông báo hệ thống"
+        formControlName="publicNotification"
+      />
+      <label>{{ notificationa.public_notification_image.key }} : </label>
+      <input
+        type="text"
+        class="form-control col-md-12 bg-trong text-white"
+        placeholder="Nhập hình ảnh thông báo hệ thống"
+        formControlName="publicNotificationImage"
+      />
+      <div class="col-md-12">
+        <button type="submit" style="float: right" class="btn btn-primary">Lưu</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-2">
+      hình ảnh public: (public_notification_image)
+      <img class="imgsize-md-3" src="{{ formUpdateNotification.value.publicNotificationImage }}" />
+    </div>
+    <div class="col-md-2">
+      hình ảnh user: (notification_image)
+      <img class="imgsize-md-3" src="{{ formUpdateNotification.value.notificationImage }}" />
+    </div>
+  </div>
+</div>
+
+<p-toast position="bottom-left"></p-toast>

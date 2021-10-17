@@ -46,6 +46,11 @@ export class MainComponent implements OnInit {
   public getPgUrl(): string {
     return `url("${String(this.account?.bgUrl)}")`;
   }
+
+  public isAuthen(): boolean {
+    return this.accountService.isAuthenticated();
+  }
+
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
     const title: string = routeSnapshot.data['pageTitle'] ?? '';
     if (routeSnapshot.firstChild) {

@@ -51,10 +51,15 @@ $dropdown-link-hover-bg: #343a40;
 text-white {
   color: white;
 }
-.img-size {
+.img-size-radius {
   height: auto;
   width: auto;
   max-width: 300px;
   max-height: 300px;
   border-radius: 50%;
+}
+.imgsize-md-3 {
+  height: auto;
+  width: auto;
+  max-width: 200px;
 }

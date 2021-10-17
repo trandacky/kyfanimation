@@ -1,11 +1,29 @@
 <div class="row">
-  <div class="col-md-3">
+  <div *ngIf="isAuthen()" class="col-md-3 text-center">
     <div *ngIf="account?.imageUrl" style="text-align: center">
-      <img class="img-size" src="{{ account?.imageUrl }}" />
+      <img class="img-size-radius" src="{{ account?.imageUrl }}" />
     </div>
+    <h2>{{ account?.lastName }} {{ account?.firstName }}</h2>
   </div>
-  <div class="col-md-6"></div>
-  <div class="col-md-3">
-    <img class="img-size" src="{{ account?.imageUrl }}" />
+  <div *ngIf="isAuthen()" class="col-md-4"></div>
+  <div class="col-md-3" *ngIf="isAuthen(); else else_content">
+    <!--    <H3>{{notification?.notification?.value}}</H3>-->
   </div>
+  <div class="col-md-2" *ngIf="isAuthen(); else else_content2">
+    <H3 class="bg-trong text-white">{{ notification?.notification?.value }}</H3>
+  </div>
+
+  <ng-template #else_content>
+    <div class="col-md-6">
+      <H2
+        ><P>{{ notification?.public_notification?.value }}</P></H2
+      >
+    </div>
+    <div class="col-md-4"></div>
+  </ng-template>
+  <ng-template #else_content2>
+    <div class="col-md-2">
+      <img class="imgsize-md-3" src="{{ notification?.public_notification_image?.value }}" />
+    </div>
+  </ng-template>
 </div>

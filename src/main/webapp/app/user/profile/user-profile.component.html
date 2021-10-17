@@ -1,5 +1,5 @@
 <style>
-  .img-size {
+  .img-size-radius {
     height: auto;
     width: auto;
     max-width: 200px;
@@ -25,7 +25,7 @@
         <div class="card-body">
           <form (ngSubmit)="update()" [formGroup]="formUpdateProfile">
             <div style="text-align: center">
-              <img class="img-size" src="{{ formUpdateProfile.value.imageUrl }}" />
+              <img class="img-size-radius" src="{{ formUpdateProfile.value.imageUrl }}" />
             </div>
             <div class="col-md-12 text-center">
               <H4>{{ formUpdateProfile?.value?.lastName }} {{ formUpdateProfile?.value?.firstName }}</H4>
