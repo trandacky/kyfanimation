@@ -1,0 +1,37 @@
+<style>
+  .img-size-radius {
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+  }
+
+  div {
+    color: white;
+  }
+
+  .bg-trong {
+    background-color: rgba(0, 0, 0.5, 0.6);
+  }
+</style>
+KHO PHIM
+<div class="card bg-trong">
+  <div class="card-body">
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-2">
+      hình ảnh public: (public_notification_image)
+      <img class="imgsize-md-3" src="{{ formUpdateNotification.value.publicNotificationImage }}" />
+    </div>
+    <div class="col-md-2">
+      hình ảnh user: (notification_image)
+      <img class="imgsize-md-3" src="{{ formUpdateNotification.value.notificationImage }}" />
+    </div>
+  </div>
+</div>
+
+<p-toast position="bottom-left"></p-toast>

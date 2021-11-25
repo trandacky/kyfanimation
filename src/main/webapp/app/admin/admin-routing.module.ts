@@ -30,6 +30,10 @@ import { RouterModule } from '@angular/router';
         path: 'notification',
         loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule),
       },
+      {
+        path: 'kho-phim',
+        loadChildren: () => import('./kho-firm/firm.module').then(m => m.FirmModule),
+      },
       /* jhipster-needle-add-admin-route - JHipster will add admin routes here */
     ]),
   ],
