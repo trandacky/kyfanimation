@@ -12,6 +12,8 @@ public class BaseResponse {
         this.response = response;
     }
 
+    public BaseResponse() {}
+
     public int getStatus() {
         return status;
     }

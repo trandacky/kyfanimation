@@ -1,16 +1,17 @@
 package com.dacky.controller;
 
+import com.dacky.constant.FirmConstant;
 import com.dacky.constant.KeyValueConstants;
 import com.dacky.constant.MessageConstant;
+import com.dacky.domain.Firm;
 import com.dacky.security.AuthoritiesConstants;
-import com.dacky.security.SecurityUtils;
+import com.dacky.service.appservice.FirmService;
 import com.dacky.service.appservice.KeyValueService;
 import com.dacky.service.dto.KeyValueDTO;
 import com.dacky.service.dto.NotificationDTO;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,9 @@ public class AdminController {
 
     @Autowired
     private KeyValueService keyValueService;
+
+    @Autowired
+    private FirmService firmService;
 
     @GetMapping("/notification")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
@@ -55,5 +59,28 @@ public class AdminController {
             .and(keyValueService.updateKeyValue(notificationDTO.getNotificationImage(), KeyValueConstants.NOTIFICATION_IMAGE))
             .and(keyValueService.updateKeyValue(notificationDTO.getPublicNotification(), KeyValueConstants.PUBLIC_NOTIFICATION))
             .thenReturn(new BaseResponse(200, MessageConstant.MESSAGE_UPDATE_SUCCESS, null));
+    }
+
+    @GetMapping("/firm/{page}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public Mono<PagingResponse> getAllFirm(@PathVariable int page) {
+        return firmService
+            .getAllFirm(page * FirmConstant.LIMIT, FirmConstant.LIMIT)
+            .collectList()
+            .flatMap(o ->
+                firmService.rowCount().flatMap(aLong -> Mono.just(new PagingResponse(200, MessageConstant.MESSAGE_SUCCESS, o, aLong)))
+            );
+    }
+
+    @GetMapping("/firm/new")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public Mono<BaseResponse> addNewFirm(@RequestBody Firm firm) {
+        return firmService.saveNewFirm(firm).flatMap(firm1 -> Mono.just(new BaseResponse(200, MessageConstant.MESSAGE_SUCCESS, firm1)));
+    }
+
+    @GetMapping("/firm/update")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public Mono<BaseResponse> updateFirm(@RequestBody Firm firm) {
+        return firmService.updateFirm(firm).flatMap(firm1 -> Mono.just(new BaseResponse(200, MessageConstant.MESSAGE_SUCCESS, firm1)));
     }
 }
