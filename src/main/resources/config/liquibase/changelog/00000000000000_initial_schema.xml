@@ -11,7 +11,7 @@
         JHipster core tables.
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
-    <changeSet id="00000000000001" author="jhipster">
+    <changeSet id="00000000000001" author="tdky">
         <createTable tableName="jhi_user">
             <column name="id" type="varchar(100)">
                 <constraints primaryKey="true" nullable="false"/>
@@ -24,11 +24,15 @@
             <column name="email" type="varchar(191)">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_email"/>
             </column>
-            <column name="image_url" type="varchar(256)"/>
+            <column name="image_url" type="varchar(512)"/>
+            <column name="bg_url" type="varchar(512)"/>
+            <column name="introduce" type="varchar(2048)"/>
             <column name="activated" type="boolean" valueBoolean="false">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="lang_key" type="varchar(10)"/>
+            <column name="phone_number" type="varchar(15)"/>
+            <column name="birthday" type="timestamp"/>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
@@ -67,32 +71,32 @@
                                  referencedTableName="jhi_user"/>
 
         <loadData
-                  file="config/liquibase/data/user.csv"
-                  separator=";"
-                  tableName="jhi_user"
-                  usePreparedStatements="true">
+            file="config/liquibase/data/user.csv"
+            separator=";"
+            tableName="jhi_user"
+            usePreparedStatements="true">
             <column name="id" type="string"/>
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>
         <dropDefaultValue tableName="jhi_user" columnName="created_date" columnDataType="${datetimeType}"/>
         <loadData
-                  file="config/liquibase/data/authority.csv"
-                  separator=";"
-                  tableName="jhi_authority"
-                  usePreparedStatements="true">
+            file="config/liquibase/data/authority.csv"
+            separator=";"
+            tableName="jhi_authority"
+            usePreparedStatements="true">
             <column name="name" type="string"/>
         </loadData>
         <loadData
-                  file="config/liquibase/data/user_authority.csv"
-                  separator=";"
-                  tableName="jhi_user_authority"
-                  usePreparedStatements="true">
+            file="config/liquibase/data/user_authority.csv"
+            separator=";"
+            tableName="jhi_user_authority"
+            usePreparedStatements="true">
             <column name="user_id" type="string"/>
         </loadData>
     </changeSet>
 
-    <changeSet author="jhipster" id="00000000000002" context="test">
+    <changeSet author="tdky" id="00000000000002" context="test">
         <createTable tableName="jhi_date_time_wrapper">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="jhi_date_time_wrapperPK"/>
@@ -104,6 +108,65 @@
             <column name="local_time" type="time"/>
             <column name="offset_time" type="time"/>
             <column name="local_date" type="date"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="tdky" id="00000000000003">
+        <createTable tableName="key_value_data">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="PK_id_key_value_data"/>
+            </column>
+            <column name="key" type="varchar(50)"/>
+            <column name="value" type="varchar(2047)"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+        <loadData
+            file="config/liquibase/data/key_value.csv"
+            separator=";"
+            tableName="key_value_data"
+            usePreparedStatements="true">
+            <column name="key" type="string"/>
+            <column name="value" type="string"/>
+        </loadData>
+    </changeSet>
+
+
+    <changeSet author="tdky" id="00000000000004">
+        <createTable tableName="firm">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="PK_id_firm"/>
+            </column>
+            <column name="name" type="varchar(256)"/>
+            <column name="image_url" type="varchar(1024)"/>
+            <column name="introduce" type="varchar(2047)"/>
+            <column name="count_episode" type="INT"/>
+            <column name="release_episode" type="INT"/>
+            <column name="release_time" type="timestamp"/>
+            <column name="active" type="boolean"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="tdky" id="00000000000005">
+        <createTable tableName="episode">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="PK_id_episode"/>
+            </column>
+            <column name="name" type="varchar(256)"/>
+            <column name="image_url" type="varchar(1024)"/>
+            <column name="limit_time_release" type="timestamp"/>
+            <column name="release_time" type="timestamp"/>
+            <column name="active" type="boolean"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
