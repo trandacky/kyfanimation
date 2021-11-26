@@ -18,6 +18,9 @@ public class Firm extends AbstractAuditingEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "category_id")
+    private Long categoryId;
+
     @Column(name = "name")
     private String name;
 
@@ -101,5 +104,13 @@ public class Firm extends AbstractAuditingEntity implements Serializable {
 
     public void setIntroduce(String introduce) {
         this.introduce = introduce;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

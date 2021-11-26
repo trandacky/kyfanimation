@@ -133,12 +133,28 @@
         </loadData>
     </changeSet>
 
-
     <changeSet author="tdky" id="00000000000004">
+        <createTable tableName="category">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(256)"/>
+            <column name="image_url" type="varchar(1024)"/>
+            <column name="release_time" type="timestamp"/>
+            <column name="active" type="boolean"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="tdky" id="00000000000005">
         <createTable tableName="firm">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="PK_id_firm"/>
             </column>
+            <column name="category_id" type="BIGINT"/>
             <column name="name" type="varchar(256)"/>
             <column name="image_url" type="varchar(1024)"/>
             <column name="introduce" type="varchar(2047)"/>
@@ -151,18 +167,94 @@
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="category_id"
+                                 baseTableName="firm"
+                                 constraintName="fk_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"/>
     </changeSet>
 
-    <changeSet author="tdky" id="00000000000005">
+    <changeSet author="tdky" id="00000000000006">
         <createTable tableName="episode">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="PK_id_episode"/>
             </column>
+            <column name="firm_id" type="BIGINT"/>
             <column name="name" type="varchar(256)"/>
             <column name="image_url" type="varchar(1024)"/>
             <column name="limit_time_release" type="timestamp"/>
             <column name="release_time" type="timestamp"/>
             <column name="active" type="boolean"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="firm_id"
+                                 baseTableName="episode"
+                                 constraintName="fk_firm_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="firm"/>
+    </changeSet>
+
+    <changeSet author="tdky" id="00000000000007">
+        <createTable tableName="comment">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="PK_id_comment"/>
+            </column>
+            <column name="user_id" type="varchar(100)"/>
+            <column name="episode_id" type="BIGINT"/>
+            <column name="comment" type="varchar(2048)"/>
+            <column name="level" type="INT"/>
+            <column name="active" type="boolean"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="episode_id"
+                                 baseTableName="comment"
+                                 constraintName="fk_id_episode"
+                                 referencedColumnNames="id"
+                                 referencedTableName="episode"/>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="comment"
+                                 constraintName="fk_user_id_comment"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+    </changeSet>
+
+    <changeSet author="tdky" id="00000000000008">
+        <createTable tableName="url">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="PK_id_url"/>
+            </column>
+            <column name="id_episode" type="BIGINT"/>
+            <column name="release_time" type="timestamp"/>
+            <column name="limit_time_release" type="timestamp"/>
+            <column name="active" type="boolean"/>
+            <column name="url" type="varchar(1024)"/>
+            <column name="link_type" type="varchar(256)"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="id_episode"
+                                 baseTableName="url"
+                                 constraintName="fk_url_id_episode"
+                                 referencedColumnNames="id"
+                                 referencedTableName="episode"/>
+    </changeSet>
+
+    <changeSet author="tdky" id="00000000000009">
+        <createTable tableName="image">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="active" type="boolean"/>
+            <column name="image_name" type="varchar(256)"/>
+            <column name="image_url" type="varchar(1024)"/>
             <column name="created_by" type="varchar(50)"/>
             <column name="created_date" type="timestamp"/>
             <column name="last_modified_by" type="varchar(50)"/>

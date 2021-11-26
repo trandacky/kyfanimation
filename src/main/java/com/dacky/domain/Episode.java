@@ -18,6 +18,9 @@ public class Episode extends AbstractAuditingEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "firm_id")
+    private Long firmId;
+
     @Column(name = "image_url", length = 1024)
     private String imageUrl;
 
@@ -79,5 +82,13 @@ public class Episode extends AbstractAuditingEntity implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Long getFirmId() {
+        return firmId;
+    }
+
+    public void setFirmId(Long firmId) {
+        this.firmId = firmId;
     }
 }

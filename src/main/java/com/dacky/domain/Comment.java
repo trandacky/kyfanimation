@@ -17,7 +17,10 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_episode")
+    @Column(name = "user_id")
+    private String userId;
+
+    @Column(name = "episode_id")
     private Long idEpisode;
 
     @Column(name = "comment", length = 2048)
@@ -67,5 +70,13 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

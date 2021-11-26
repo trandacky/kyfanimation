@@ -1,14 +1,14 @@
 package com.dacky.domain;
 
-import java.io.Serializable;
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import java.io.Serializable;
+import java.time.Instant;
 
-@Table("image")
-public class Image extends AbstractAuditingEntity implements Serializable {
+public class Category extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,14 +17,17 @@ public class Image extends AbstractAuditingEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "image_name")
-    private String imageName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "image_url", length = 1024)
+    @Column(name = "image_url", length = 2048)
     private String imageUrl;
 
     @Column(name = "active")
-    private boolean active;
+    private boolean active = false;
+
+    @Column(name = "release_time")
+    private Instant releaseTime = Instant.now();
 
     public Long getId() {
         return id;
@@ -34,12 +37,12 @@ public class Image extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public String getImageName() {
-        return imageName;
+    public String getName() {
+        return name;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImageUrl() {
@@ -56,5 +59,13 @@ public class Image extends AbstractAuditingEntity implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Instant getReleaseTime() {
+        return releaseTime;
+    }
+
+    public void setReleaseTime(Instant releaseTime) {
+        this.releaseTime = releaseTime;
     }
 }
