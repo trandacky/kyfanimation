@@ -34,6 +34,10 @@ import { RouterModule } from '@angular/router';
         path: 'kho-phim',
         loadChildren: () => import('./kho-firm/firm.module').then(m => m.FirmModule),
       },
+      {
+        path: 'the-loai',
+        loadChildren: () => import('./the-loai/theloai.module').then(m => m.TheloaiModule),
+      },
       /* jhipster-needle-add-admin-route - JHipster will add admin routes here */
     ]),
   ],

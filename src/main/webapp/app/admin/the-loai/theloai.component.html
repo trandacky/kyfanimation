@@ -1,0 +1,40 @@
+<style>
+  .img-size-radius {
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+  }
+
+  div {
+    color: white;
+  }
+
+  .bg-trong {
+    background-color: rgba(0, 0, 0.5, 0.6);
+  }
+</style>
+<h4>Thể Loại</h4>
+<div class="card bg-trong">
+  <div class="card-body">
+
+  </div>
+
+  <p-button (click)="showDialog()" icon="pi pi-external-link" label="Thêm mới"></p-button>
+  <form (ngSubmit)="update()">
+    <p-dialog header="Header" [(visible)]="displayAddDialog" [modal]="true" [style]="{width: '50vw'}"
+              [draggable]="false" [resizable]="false">
+
+      <input class="form-control"/>
+
+      <ng-template pTemplate="footer">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <p-button icon="pi pi-check" (click)="update();displayAddDialog=false"  label="Ok" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-times" (click)="displayAddDialog=false"  label="Cancel" styleClass="p-button-text"></p-button>
+      </ng-template>
+    </p-dialog>
+  </form>
+</div>
+
+<p-toast position="bottom-left"></p-toast>

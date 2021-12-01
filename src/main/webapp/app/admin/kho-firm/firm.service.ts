@@ -10,10 +10,15 @@ export class FirmService {
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  getNotification(): Observable<any> {
-    return this.http.get(this.urlGateway + `/notification`);
+  getFirm(page : number): Observable<any> {
+    return this.http.get(this.urlGateway + `/firm/${page}`);
   }
-  updateNotification(data: FormData): Observable<any> {
+
+  updateFirm(data: FormData): Observable<any> {
+    return this.http.put(this.urlGateway + `/notification`, data);
+  }
+
+  createFirm(data: FormData): Observable<any> {
     return this.http.put(this.urlGateway + `/notification`, data);
   }
 }

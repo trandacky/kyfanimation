@@ -12,7 +12,6 @@ import { NotificationService } from './notification.service';
 })
 export class NotificationComponent implements OnInit {
   notificationa: any;
-  formTest!: FormGroup;
   formUpdateNotification: any;
   dateFormat!: string;
   constructor(private messageService: MessageService, private formBuilder: FormBuilder, private notificationService: NotificationService) {}
@@ -37,18 +36,25 @@ export class NotificationComponent implements OnInit {
   }
 
   private loadAll(): void {
+    this.formUpdateNotification = this.createFormNotification();
     this.notificationService.getNotification().subscribe(data => {
       this.notificationa = data.response;
-      this.formUpdateNotification = this.structureCreateFormNotification(data.response);
+      this.structureCreateFormNotification(data.response);
     });
   }
 
-  private structureCreateFormNotification(response: any): FormGroup {
+  private structureCreateFormNotification(response: any): void {
+    this.formUpdateNotification.get('notification')?.setValue(response?.notification.value);
+    this.formUpdateNotification.get('notificationImage')?.setValue(response?.notification_image.value);
+    this.formUpdateNotification.get('publicNotification')?.setValue(response?.public_notification.value);
+    this.formUpdateNotification.get('publicNotificationImage')?.setValue(response?.public_notification_image.value);
+  }
+  private createFormNotification(): FormGroup {
     return this.formBuilder.group({
-      notification: [response?.notification.value],
-      notificationImage: [response?.notification_image.value],
-      publicNotification: [response?.public_notification.value],
-      publicNotificationImage: [response?.public_notification_image.value],
+      notification: "",
+      notificationImage: "",
+      publicNotification: "",
+      publicNotificationImage: "",
     });
   }
 }
